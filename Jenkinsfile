@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.1' 
-        jdk 'jdk17'         
+        maven 'Maven 3.8.1'
+        jdk 'jdk17'
     }
 
     stages {
         stage('Clonar Repositorio') {
             steps {
-                git 'https://github.com/Sergica2004/Calculadora-Java.git' 
+                git 'https://github.com/Sergica2004/Calculadora-Java.git'
             }
         }
 
@@ -24,17 +24,12 @@ pipeline {
                 sh 'mvn test'
             }
         }
-
-        stage('Publicar Reportes') {
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                }
-            }
-        }
     }
 
     post {
+        always {
+            junit '**/target/surefire-reports/*.xml'
+        }
         success {
             echo '✅ ¡Build exitoso!'
         }
