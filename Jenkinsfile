@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clonar Repositorio') {
             steps {
-                git 'https://github.com/Sergica2004/Calculadora-Java' 
+                git 'https://github.com/Sergica2004/Calculadora-Java.git' 
             }
         }
 
