@@ -24,11 +24,25 @@ pipeline {
                 sh 'mvn test'
             }
         }
+
+        stage('Generar reportes') {
+            steps {
+                sh '''
+                    mvn surefire-report:report-only
+                    mvn site
+                '''
+            }
+        }
     }
 
     post {
         always {
             junit '**/target/surefire-reports/*.xml'
+            publishHTML(target: [
+                reportDir: 'target/site',
+                reportFiles: 'index.html',
+                reportName: 'Reporte de Pruebas HTML'
+            ])
         }
         success {
             echo '✅ ¡Build exitoso!'
